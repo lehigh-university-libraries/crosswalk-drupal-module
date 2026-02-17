@@ -94,6 +94,10 @@ class EntityEnricher {
       return $value;
     }
 
+    if (is_string($value)) {
+      return strip_tags($value);
+    }
+
     if (is_array($value)) {
       // Check if this is an associative array (map) or a sequential array.
       if ($this->isAssociative($value)) {

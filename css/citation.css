@@ -1,10 +1,96 @@
-script.crosswalk-schemaorg {
+.crosswalk-citation {
+  --crosswalk-tab-bg: var(--bs-tertiary-bg, #f8f9fa);
+  --crosswalk-tab-bg-active: color-mix(in srgb, var(--bs-primary, #0d6efd) 10%, #fff);
+  --crosswalk-tab-color: var(--bs-secondary-color, #6c757d);
+  --crosswalk-tab-color-active: var(--bs-primary, #0d6efd);
+  --crosswalk-surface-bg: var(--bs-body-bg, #fff);
+  --crosswalk-surface-border: var(--bs-border-color, #dee2e6);
+}
+
+.crosswalk-citation .crosswalk-tabs {
+  border-bottom: 0;
+  gap: 0.5rem;
+}
+
+.crosswalk-citation .crosswalk-tabs .nav-link {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--crosswalk-tab-bg);
+  color: var(--crosswalk-tab-color);
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0.5rem 0.9rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.crosswalk-citation .crosswalk-tabs .nav-link:hover {
+  border-color: color-mix(in srgb, var(--bs-primary, #0d6efd) 20%, transparent);
+  color: var(--bs-emphasis-color, #212529);
+}
+
+.crosswalk-citation .crosswalk-tabs .nav-link.active {
+  background: var(--crosswalk-tab-bg-active);
+  border-color: color-mix(in srgb, var(--bs-primary, #0d6efd) 30%, transparent);
+  color: var(--crosswalk-tab-color-active);
+}
+
+.crosswalk-citation .crosswalk-tabs .nav-link:focus-visible {
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--bs-primary, #0d6efd) 25%, transparent);
+}
+
+.crosswalk-citation .crosswalk-tab-content {
+  background: var(--crosswalk-surface-bg);
+  border: 1px solid var(--crosswalk-surface-border);
+  border-radius: 0.8rem;
+  padding: 1rem 1rem 1.25rem;
+}
+
+.crosswalk-citation .tab-pane > :last-child {
+  margin-bottom: 0;
+}
+
+.crosswalk-citation .crosswalk-copy {
+  align-items: center;
+  background: var(--crosswalk-tab-bg);
+  border: 1px solid var(--crosswalk-surface-border);
+  border-radius: 999px;
+  color: var(--bs-emphasis-color, #212529);
+  display: inline-flex;
+  font-weight: 500;
+  gap: 0.35rem;
+  line-height: 1.2;
+  padding: 0.4rem 0.75rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.crosswalk-citation .crosswalk-copy:hover {
+  background: color-mix(in srgb, var(--bs-primary, #0d6efd) 10%, #fff);
+  border-color: color-mix(in srgb, var(--bs-primary, #0d6efd) 30%, transparent);
+  color: var(--crosswalk-tab-color-active);
+}
+
+.crosswalk-citation .crosswalk-copy:focus-visible {
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--bs-primary, #0d6efd) 25%, transparent);
+}
+
+.crosswalk-citation .crosswalk-copy .material-symbols-outlined {
+  font-size: 1rem;
+}
+
+.crosswalk-citation .crosswalk-copy.is-copied {
+  background: color-mix(in srgb, var(--bs-success, #198754) 14%, #fff);
+  border-color: color-mix(in srgb, var(--bs-success, #198754) 35%, transparent);
+  color: var(--bs-success, #198754);
+}
+
+.crosswalk-citation pre,
+.crosswalk-citation script.crosswalk-schemaorg {
+  background: var(--crosswalk-tab-bg);
+  border: 1px solid var(--crosswalk-surface-border);
+  border-radius: 0.5rem;
   display: block;
-  white-space: pre;
-  font-family: monospace;
-  background: var(--bs-tertiary-bg, #f8f9fa);
-  padding: 1rem;
-  border: 1px solid var(--bs-border-color, #dee2e6);
-  border-radius: 0.25rem;
+  font-family: var(--bs-font-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
   overflow-x: auto;
+  padding: 1rem;
+  white-space: pre;
 }

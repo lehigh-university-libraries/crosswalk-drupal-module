@@ -1,5 +1,5 @@
 <div class="crosswalk-citation" {% if csl_json %}data-crosswalk-csl="{{ csl_json|e('html_attr') }}"{% endif %}>
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs crosswalk-tabs" role="tablist">
     {% if csl_json %}
       <li class="nav-item" role="presentation">
         <button class="nav-link active" data-bs-toggle="tab" data-crosswalk-tab="apa" type="button" role="tab" aria-selected="true">APA</button>
@@ -25,35 +25,35 @@
       </li>
     {% endif %}
   </ul>
-  <div class="tab-content pt-3">
+  <div class="tab-content crosswalk-tab-content pt-3">
     {% if csl_json %}
       <div class="tab-pane fade show active" data-crosswalk-pane="apa" role="tabpanel">
         <div class="crosswalk-citation-apa"></div>
-        <button type="button" class="btn btn-sm btn-outline-secondary mt-2 crosswalk-copy" data-crosswalk-copy="apa" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
+        <button type="button" class="btn btn-sm mt-3 crosswalk-copy" data-crosswalk-copy="apa" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
       </div>
       <div class="tab-pane fade" data-crosswalk-pane="mla" role="tabpanel">
         <div class="crosswalk-citation-mla"></div>
-        <button type="button" class="btn btn-sm btn-outline-secondary mt-2 crosswalk-copy" data-crosswalk-copy="mla" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
+        <button type="button" class="btn btn-sm mt-3 crosswalk-copy" data-crosswalk-copy="mla" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
       </div>
       <div class="tab-pane fade" data-crosswalk-pane="chicago" role="tabpanel">
         <div class="crosswalk-citation-chicago"></div>
-        <button type="button" class="btn btn-sm btn-outline-secondary mt-2 crosswalk-copy" data-crosswalk-copy="chicago" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
+        <button type="button" class="btn btn-sm mt-3 crosswalk-copy" data-crosswalk-copy="chicago" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
       </div>
       <div class="tab-pane fade" data-crosswalk-pane="csl-json" role="tabpanel">
         <pre class="crosswalk-csl-json"></pre>
-        <button type="button" class="btn btn-sm btn-outline-secondary mt-2 crosswalk-copy" data-crosswalk-copy="csl-json" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
+        <button type="button" class="btn btn-sm mt-3 crosswalk-copy" data-crosswalk-copy="csl-json" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
       </div>
     {% endif %}
     {% if bibtex %}
       <div class="tab-pane fade{{ not csl_json ? ' show active' }}" data-crosswalk-pane="bibtex" role="tabpanel">
         <pre class="crosswalk-bibtex">{{ bibtex }}</pre>
-        <button type="button" class="btn btn-sm btn-outline-secondary mt-2 crosswalk-copy" data-crosswalk-copy="bibtex" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
+        <button type="button" class="btn btn-sm mt-3 crosswalk-copy" data-crosswalk-copy="bibtex" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
       </div>
     {% endif %}
     {% if schemaorg %}
       <div class="tab-pane fade{{ not csl_json and not bibtex ? ' show active' }}" data-crosswalk-pane="schemaorg" role="tabpanel">
         <script type="application/ld+json" class="crosswalk-schemaorg">{{ schemaorg|raw }}</script>
-        <button type="button" class="btn btn-sm btn-outline-secondary mt-2 crosswalk-copy" data-crosswalk-copy="schemaorg" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
+        <button type="button" class="btn btn-sm mt-3 crosswalk-copy" data-crosswalk-copy="schemaorg" title="Copy to clipboard"><span class="material-symbols-outlined">content_copy</span><span class="crosswalk-copy-fallback">Copy</span></button>
       </div>
     {% endif %}
   </div>

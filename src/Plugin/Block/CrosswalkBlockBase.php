@@ -88,6 +88,13 @@ abstract class CrosswalkBlockBase extends BlockBase implements ContainerFactoryP
     $json = $this->serializer->serialize($node, 'json');
     $json = $this->enricher->enrich($json);
 
+    $data = json_decode($json, TRUE);
+    if ($data !== NULL) {
+      $url = $this->resolveUrl($data, $node);
+      $data['_url'] = $url;
+      $json = json_encode($data);
+    }
+
     $process = new Process([
       'crosswalk',
       'convert',
@@ -103,7 +110,96 @@ abstract class CrosswalkBlockBase extends BlockBase implements ContainerFactoryP
       return NULL;
     }
 
-    return $process->getOutput();
+    $output = $process->getOutput();
+
+    if ($data !== NULL) {
+      $output = $this->postProcessOutput($output, $format, $url);
+    }
+
+    return $output;
+  }
+
+  /**
+   * Resolves the canonical URL for a node.
+   *
+   * Uses the DOI if available, otherwise falls back to the absolute canonical
+   * node URL.
+   *
+   * @param array $data
+   *   The enriched JSON data.
+   * @param \Drupal\node\NodeInterface $node
+   *   The node entity.
+   *
+   * @return string
+   *   The resolved URL.
+   */
+  protected function resolveUrl(array $data, NodeInterface $node): string {
+    $doi = $this->extractDoi($data);
+    if ($doi !== NULL) {
+      return 'https://doi.org/' . $doi;
+    }
+    return $node->toUrl('canonical', ['absolute' => TRUE])->toString();
+  }
+
+  /**
+   * Extracts a DOI value from enriched entity data.
+   *
+   * @param array $data
+   *   The enriched JSON data.
+   *
+   * @return string|null
+   *   The DOI string, or NULL if not found.
+   */
+  protected function extractDoi(array $data): ?string {
+    if (empty($data['field_identifier']) || !is_array($data['field_identifier'])) {
+      return NULL;
+    }
+    foreach ($data['field_identifier'] as $item) {
+      if (is_array($item) && isset($item['attr0']) && $item['attr0'] === 'doi' && !empty($item['value'])) {
+        return $item['value'];
+      }
+    }
+    return NULL;
+  }
+
+  /**
+   * Post-processes crosswalk CLI output to ensure URL is set.
+   *
+   * @param string $output
+   *   The raw CLI output.
+   * @param string $format
+   *   The output format (e.g. schemaorg, csl).
+   * @param string $url
+   *   The resolved URL.
+   *
+   * @return string
+   *   The post-processed output.
+   */
+  protected function postProcessOutput(string $output, string $format, string $url): string {
+    $decoded = json_decode($output, TRUE);
+    if ($decoded === NULL) {
+      return $output;
+    }
+
+    if ($format === 'schemaorg') {
+      $decoded['url'] = $url;
+      return json_encode($decoded);
+    }
+
+    if ($format === 'csl') {
+      if (array_is_list($decoded)) {
+        foreach ($decoded as &$item) {
+          $item['URL'] = $url;
+        }
+        unset($item);
+      }
+      else {
+        $decoded['URL'] = $url;
+      }
+      return json_encode($decoded);
+    }
+
+    return $output;
   }
 
   /**
