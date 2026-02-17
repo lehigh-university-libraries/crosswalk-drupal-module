@@ -3,6 +3,7 @@
 namespace Drupal\crosswalk;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -38,6 +39,18 @@ class EntityEnricher {
    *
    * @var string[]
    */
+  /**
+   * The logger.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected LoggerInterface $logger;
+
+  /**
+   * Entity types that support loading by ID.
+   *
+   * @var string[]
+   */
   protected static array $supportedTypes = [
     'taxonomy_term',
     'node',
@@ -48,9 +61,10 @@ class EntityEnricher {
   /**
    * Constructs an EntityEnricher.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, LoggerInterface $logger) {
     $this->entityTypeManager = $entity_type_manager;
     $this->serializer = $serializer;
+    $this->logger = $logger;
   }
 
   /**
@@ -166,7 +180,7 @@ class EntityEnricher {
     }
     catch (\Exception $e) {
       // Log but don't fail — keep the original reference.
-      \Drupal::logger('crosswalk')->warning('Failed to enrich @type @id: @message', [
+      $this->logger->warning('Failed to enrich @type @id: @message', [
         '@type' => $targetType,
         '@id' => $targetId,
         '@message' => $e->getMessage(),

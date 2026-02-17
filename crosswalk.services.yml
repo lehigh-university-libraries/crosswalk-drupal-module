@@ -1,6 +1,11 @@
 services:
+  logger.channel.crosswalk:
+    parent: logger.channel_base
+    arguments: ['crosswalk']
+
   crosswalk.entity_enricher:
     class: Drupal\crosswalk\EntityEnricher
     arguments:
       - '@entity_type.manager'
       - '@serializer'
+      - '@logger.channel.crosswalk'
