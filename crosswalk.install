@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Crosswalk module.
+ */
+
+use Drupal\Core\Site\Settings;
+use Symfony\Component\Process\Process;
+
+/**
+ * Implements hook_install().
+ */
+function crosswalk_install() {
+  $config_sync_dir = Settings::get('config_sync_directory');
+
+  $command = [
+    'crosswalk',
+    'profile',
+    'create',
+    'drupal',
+    'default',
+    '--bundle',
+    'islandora_object',
+    '-f',
+    '--auto',
+    '--from-config',
+    $config_sync_dir,
+  ];
+
+  $process = new Process($command);
+  $process->run();
+
+  if (!$process->isSuccessful()) {
+    \Drupal::messenger()->addWarning(t('Crosswalk profile creation failed: @error', [
+      '@error' => $process->getErrorOutput(),
+    ]));
+  }
+}

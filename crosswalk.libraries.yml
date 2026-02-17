@@ -1,0 +1,10 @@
+citation:
+  css:
+    component:
+      css/citation.css: {}
+  js:
+    https://cdn.jsdelivr.net/npm/citation-js@0.7/build/citation.min.js:
+      type: external
+    js/citation.js: {}
+  dependencies:
+    - core/drupal

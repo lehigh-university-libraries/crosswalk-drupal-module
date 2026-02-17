@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Crosswalk module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function crosswalk_theme() {
+  return [
+    'crosswalk_citation' => [
+      'variables' => [
+        'csl_json' => NULL,
+        'bibtex' => NULL,
+        'schemaorg' => NULL,
+      ],
+    ],
+  ];
+}
