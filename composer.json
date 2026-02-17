@@ -1,0 +1,24 @@
+{
+  "name": "drupal/crosswalk",
+  "description": "Integrate with the crosswalk CLI tool to convert scholarly metadata between formats",
+  "type": "drupal-module",
+  "keywords": ["Drupal"],
+  "homepage": "https://www.drupal.org/project/crosswalk",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/crosswalk"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Joe Corall",
+      "email": "jjc223@lehigh.edu",
+      "role": "Maintainer"
+    }
+  ]
+}
