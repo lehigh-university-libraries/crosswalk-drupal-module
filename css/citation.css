@@ -61,6 +61,7 @@
   line-height: 1.2;
   padding: 0.4rem 0.75rem;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  float: right !important;
 }
 
 .crosswalk-citation .crosswalk-copy:hover {
