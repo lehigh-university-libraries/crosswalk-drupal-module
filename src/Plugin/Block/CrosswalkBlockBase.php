@@ -100,8 +100,6 @@ abstract class CrosswalkBlockBase extends BlockBase implements ContainerFactoryP
       'convert',
       'drupal',
       $format,
-      '--profile',
-      'default',
     ]);
     $process->setInput($json);
     $process->run();
